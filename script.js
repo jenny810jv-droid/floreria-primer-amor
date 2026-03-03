@@ -10,35 +10,41 @@ function cambiarImagen() {
 }
 if (hero) setInterval(cambiarImagen, 10000);
 
-// --- 2. AGREGAR AL CARRITO (CON EFECTO VERDE) ---
-window.agregarAlCarrito = function(nombre, precio, imagen, boton) {
+// --- 2. AGREGAR AL CARRITO (AUTOMÁTICO Y CON EFECTO VERDE) ---
+window.agregarAlCarrito = function(nombre, precio, imagen) {
     let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
     
-    // Guardamos el producto
+    // Guardamos el producto en el almacenamiento local
     carrito.push({ nombre, precio, imagen, cantidad: 1 });
     localStorage.setItem('carrito', JSON.stringify(carrito));
 
-    // EFECTO VISUAL EN EL BOTÓN
-    if (boton) {
-        const textoOriginal = boton.innerText;
-        const colorOriginal = boton.style.backgroundColor;
+    // LÓGICA PARA BUSCAR EL BOTÓN Y PONERLO VERDE
+    // Buscamos en todos los botones de la página cuál contiene el nombre del producto
+    const botones = document.querySelectorAll('button');
+    const botonPresionado = Array.from(botones).find(b => 
+        b.getAttribute('onclick') && b.getAttribute('onclick').includes(nombre)
+    );
 
-        boton.innerText = "¡Añadido! ✓";
-        boton.style.backgroundColor = "#28a745"; // Verde
-        boton.style.color = "white";
+    if (botonPresionado) {
+        const textoOriginal = botonPresionado.innerText;
+        
+        botonPresionado.innerText = "¡Añadido! ✓";
+        botonPresionado.style.backgroundColor = "#28a745"; // Verde
+        botonPresionado.style.color = "white";
         
         setTimeout(() => {
-            boton.innerText = textoOriginal;
-            boton.style.backgroundColor = colorOriginal;
-            boton.style.color = "";
+            botonPresionado.innerText = textoOriginal;
+            botonPresionado.style.backgroundColor = ""; // Vuelve al color original del CSS
+            botonPresionado.style.color = "";
         }, 2000);
     }
 
     actualizarContador();
+    // Si estamos en la página del carrito, lo actualizamos visualmente de inmediato
     if (document.getElementById('items-carrito')) renderizarCarrito();
 };
 
-// --- 3. ACTUALIZAR EL NUMERITO DEL CARRITO ---
+// --- 3. ACTUALIZAR EL NÚMERO DEL CARRITO EN EL MENÚ ---
 function actualizarContador() {
     const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
     const contadores = document.querySelectorAll('.cart-count'); 
@@ -47,39 +53,8 @@ function actualizarContador() {
         c.style.display = carrito.length > 0 ? "block" : "none";
     });
 }
-// --- 2. AGREGAR AL CARRITO (AUTOMÁTICO) ---
-window.agregarAlCarrito = function(nombre, precio, imagen) {
-    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-    
-    // Guardamos el producto
-    carrito.push({ nombre, precio, imagen, cantidad: 1 });
-    localStorage.setItem('carrito', JSON.stringify(carrito));
 
-    // BUSCAR EL BOTÓN DE FORMA AUTOMÁTICA
-    // Buscamos el botón que tenga el texto de este producto
-    const botones = document.querySelectorAll('button');
-    const botonPresionado = Array.from(botones).find(b => 
-        b.getAttribute('onclick') && b.getAttribute('onclick').includes(nombre)
-    );
-
-    if (botonPresionado) {
-        const textoOriginal = botonPresionado.innerText;
-        botonPresionado.innerText = "¡Añadido! ✓";
-        botonPresionado.style.backgroundColor = "#28a745"; // Verde
-        botonPresionado.style.color = "white";
-        
-        setTimeout(() => {
-            botonPresionado.innerText = textoOriginal;
-            botonPresionado.style.backgroundColor = ""; 
-            botonPresionado.style.color = "";
-        }, 2000);
-    }
-
-    actualizarContador();
-    if (document.getElementById('items-carrito')) renderizarCarrito();
-};
-
-// --- 4. RENDERIZAR CARRITO ---
+// --- 4. RENDERIZAR CARRITO (DIBUJAR PRODUCTOS) ---
 function renderizarCarrito() {
     const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
     const contenedor = document.getElementById('items-carrito');
@@ -105,18 +80,17 @@ function renderizarCarrito() {
     carrito.forEach((item, index) => {
         subtotal += (item.precio * item.cantidad);
         contenedor.innerHTML += `
-            <div class="item-carrito" style="display: flex; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
-                <img src="${item.image || item.imagen}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px; margin-right: 15px;">
+            <div class="cart-card" style="display: flex; align-items: center; margin-bottom: 15px; background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                <img src="${item.imagen}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px; margin-right: 15px;" onerror="this.src='img/mantenimiento.jpg'">
                 <div class="info-item">
-                    <h4 style="margin: 0;">${item.nombre}</h4>
-                    <p style="margin: 5px 0;">$${item.precio.toLocaleString()}</p>
+                    <h4 style="margin: 0; color: #0a1a44;">${item.nombre}</h4>
+                    <p style="margin: 5px 0; color: #d4a373; font-weight: bold;">$${item.precio.toLocaleString()}</p>
                 </div>
-                <button onclick="eliminarDelCarrito(${index})" style="margin-left: auto; color: red; background: none; border: none; cursor: pointer;">Eliminar</button>
+                <button onclick="eliminarDelCarrito(${index})" style="margin-left: auto; color: #ff4757; background: #fff5f5; border: none; width: 30px; height: 30px; border-radius: 50%; cursor: pointer;">✕</button>
             </div>`;
     });
 
     const totalConEnvio = subtotal + costoEnvio;
-    
     const totalFinalElem = document.getElementById('total-final');
     const btnPagoElem = document.getElementById('btn-finalizar-pago');
 
@@ -134,10 +108,10 @@ window.eliminarDelCarrito = function(index) {
     actualizarContador();
 };
 
-// --- 5. PAGO SEGURO ---
+// --- 5. LÓGICA DE PAGO CON MERCADO PAGO ---
 async function finalizarCompra() {
     const totalVenta = localStorage.getItem('totalAPagar');
-    // Si el total es solo el envío o menos, no dejar pagar
+    
     if (!totalVenta || parseInt(totalVenta) <= 10000) {
         return alert("Agrega productos al carrito primero");
     }
@@ -164,15 +138,16 @@ async function finalizarCompra() {
         }
     } catch (e) {
         console.error("Error en el pago:", e);
-        alert("Hubo un problema al conectar con Mercado Pago. Revisa tu conexión.");
+        alert("Hubo un problema al conectar con Mercado Pago.");
         btn.innerText = textoOriginal;
         btn.disabled = false;
     }
 }
 
-// --- 6. INICIALIZACIÓN ---
+// --- 6. INICIALIZACIÓN AL CARGAR LA PÁGINA ---
 document.addEventListener('DOMContentLoaded', () => {
     actualizarContador();
+    
     if (document.getElementById('items-carrito')) {
         renderizarCarrito();
     }
