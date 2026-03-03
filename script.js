@@ -108,7 +108,7 @@ async function finalizarCompra() {
     btn.disabled = true;
 
     try {
-        const response = await fetch('/.netlify/functions/crear-pago', {
+        const response = await fetch('/api/crear-pago', {
             method: 'POST',
             body: JSON.stringify({ total: totalVenta })
         });
@@ -123,4 +123,5 @@ async function finalizarCompra() {
 document.addEventListener('DOMContentLoaded', () => {
     actualizarContador();
     renderizarCarrito();
+
 });
