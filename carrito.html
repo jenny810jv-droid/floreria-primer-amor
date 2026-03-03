@@ -89,40 +89,29 @@
 
 <nav class="navbar">
     <a href="index.html" class="logo"><b>El Primer</b> <span>Amor</span></a>
-    <div class="menu-toggle" id="mobile-menu">
-        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
-    </div>
     <ul class="nav-links">
         <li><a href="index.html">Inicio</a></li>
-        <li><a href="mantenimiento.html">Mantenimiento</a></li>
         <li><a href="arreglos.html">Arreglos</a></li>
         <li><a href="plantas.html">Plantas</a></li> 
         <li><a href="materas.html">Materas</a></li>
-        <li><a href="galeria.html">Galería</a></li>
-        <li><a href="carrito.html" class="cart-link active">🛒 <span id="cart-count">0</span></a></li>
-        <li><a href="https://wa.me/573187092708" class="btn-wa" target="_blank">WhatsApp</a></li>
+        <li><a href="carrito.html" class="cart-link active">🛒 <span class="cart-count">0</span></a></li>
     </ul>
-</nav>
 </nav>
 
 <div class="carrito-wrapper">
     <h1 class="section-title">Tu Pedido Especial</h1>
     
-    <div id="cart-items-container" class="cart-items-list"></div>
+    <div id="items-carrito" class="cart-items-list"></div>
 
     <aside id="checkout-summary" class="sidebar-box">
         <h3>Resumen del Pedido</h3>
-        <div class="resumen-linea">
-            <span>Subtotal:</span>
-            <span id="subtotal-val">$0</span>
-        </div>
         <div class="resumen-linea">
             <span>Envío (Bogotá):</span>
             <span>$10,000</span>
         </div>
         <div class="resumen-linea total">
             <span>Total:</span>
-            <span id="total-val">$0</span>
+            <span id="total-final">$0</span>
         </div>
 
         <div class="formulario-entrega">
@@ -141,87 +130,11 @@
             </div>
         </div>
 
-        <button id="btn-finalizar-pago" onclick="finalizarCompra()" class="btn-pay-now">
+        <button id="btn-finalizar-pago" class="btn-pay-now">
             Pagar Total: $0
         </button>
     </aside>
-
-    <div id="cart-empty" class="empty-state" style="display: none;">
-        <h2>Tu carrito está vacío</h2>
-        <br>
-        <a href="arreglos.html" style="color: #d4a373; font-weight: bold; text-decoration: none;">← Ver Catálogo</a>
-    </div>
 </div>
-
-<script>
-    function renderCarrito() {
-        const listado = document.getElementById('cart-items-container');
-        const summary = document.getElementById('checkout-summary');
-        const emptyState = document.getElementById('cart-empty');
-        const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-        const envio = 10000;
-
-        // Actualizar contador del menú
-        const cartCount = document.getElementById('cart-count');
-        if(cartCount) cartCount.innerText = carrito.length;
-
-        if (carrito.length === 0) {
-            if(listado) listado.style.display = 'none';
-            if(summary) summary.style.display = 'none';
-            if(emptyState) emptyState.style.display = 'block';
-            return;
-        }
-
-        if(emptyState) emptyState.style.display = 'none';
-        if(listado) {
-            listado.style.display = 'flex';
-            listado.innerHTML = '';
-        }
-        if(summary) summary.style.display = 'block';
-
-        let subtotal = 0;
-
-        carrito.forEach((item, index) => {
-            subtotal += (item.precio * item.cantidad);
-            listado.innerHTML += `
-                <div class="cart-card">
-                    <img src="${item.imagen}" onerror="this.src='img/mantenimiento.jpg'">
-                    <div class="cart-card-info">
-                        <h4>${item.nombre}</h4>
-                        <p>Cantidad: ${item.cantidad}</p>
-                        <div class="item-price">$${item.precio.toLocaleString('es-CO')}</div>
-                    </div>
-                    <button class="btn-remove" onclick="quitar(${index})">✕</button>
-                </div>
-            `;
-        });
-
-        const totalFinal = subtotal + envio;
-
-        // Actualizar valores numéricos
-        document.getElementById('subtotal-val').innerText = "$" + subtotal.toLocaleString('es-CO');
-        document.getElementById('total-val').innerText = "$" + totalFinal.toLocaleString('es-CO');
-        
-        // ACTUALIZA EL TEXTO DEL BOTÓN DE PAGO
-        const btnPago = document.getElementById('btn-finalizar-pago');
-        if(btnPago) {
-            btnPago.innerText = "Pagar Total: $" + totalFinal.toLocaleString('es-CO');
-        }
-
-        // Importante para la función de Mercado Pago
-        localStorage.setItem('totalAPagar', totalFinal);
-    }
-
-    function quitar(idx) {
-        let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-        carrito.splice(idx, 1);
-        localStorage.setItem('carrito', JSON.stringify(carrito));
-        renderCarrito();
-    }
-
-    // Ejecutar al cargar
-    document.addEventListener('DOMContentLoaded', renderCarrito);
-</script>
 
 <script src="script.js"></script>
 
