@@ -58,31 +58,40 @@
         }
         .btn-pay-now:hover { background: #d4a373; transform: translateY(-3px); }
 
-        /* AJUSTE DEL CONTADOR EN EL MENÚ */
-        .cart-link {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
+        /* AJUSTE DEFINITIVO DE TAMAÑO Y POSICIÓN DEL CONTADOR */
+.cart-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-        .cart-count {
-            position: absolute;
-            top: -10px;
-            right: -12px;
-            background-color: #ff4757;
-            color: white;
-            font-size: 0.75rem;
-            padding: 2px 6px;
-            border-radius: 50%;
-            font-weight: bold;
-            min-width: 18px;
-            height: 18px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 2px solid white;
-        }
+.cart-count {
+    position: absolute;
+    /* Ajustamos la posición para que flote bien */
+    top: -12px;
+    right: -15px;
+    
+    /* Colores y tipografía */
+    background-color: #ff4757; /* El color rojo que usas */
+    color: white;
+    font-size: 0.75rem; /* Tamaño de fuente legible pero pequeño */
+    font-weight: bold;
+    
+    /* ESTO ARREGLA EL TAMAÑO: Ancho y alto fijos para hacer un círculo */
+    width: 20px;
+    height: 20px;
+    border-radius: 50%; /* Esto hace el círculo perfecto */
+    border: 2px solid white; /* Borde blanco para que resalte */
 
+    /* Centrado perfecto del número dentro del círculo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* Pequeña sombra para dar profundidad */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
         @media (max-width: 850px) {
             .carrito-wrapper { grid-template-columns: 1fr; }
         }
@@ -149,6 +158,7 @@
 
 </body>
 </html>
+
 
 
 
