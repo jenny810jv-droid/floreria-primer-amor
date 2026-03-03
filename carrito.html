@@ -32,26 +32,6 @@
         /* Columna Izquierda: Productos */
         .cart-items-list { display: flex; flex-direction: column; gap: 20px; }
 
-        .cart-card {
-            display: flex;
-            align-items: center;
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-        }
-
-        .cart-card img { width: 100px; height: 100px; object-fit: cover; border-radius: 12px; }
-        .cart-card-info { flex: 1; margin-left: 20px; }
-        .cart-card-info h4 { font-family: 'Playfair Display', serif; color: #0a1a44; margin: 0; }
-        .item-price { color: #d4a373; font-weight: bold; margin-top: 5px; }
-
-        .btn-remove {
-            background: #fff5f5; color: #ff4757; border: none;
-            width: 30px; height: 30px; border-radius: 50%; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-        }
-
         /* Columna Derecha: Sidebar */
         .sidebar-box {
             background: white;
@@ -78,34 +58,34 @@
         }
         .btn-pay-now:hover { background: #d4a373; transform: translateY(-3px); }
 
-        .empty-state { text-align: center; padding: 100px 0; grid-column: 1 / -1; }
+        /* AJUSTE DEL CONTADOR EN EL MENÚ */
+        .cart-link {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -12px;
+            background-color: #ff4757;
+            color: white;
+            font-size: 0.75rem;
+            padding: 2px 6px;
+            border-radius: 50%;
+            font-weight: bold;
+            min-width: 18px;
+            height: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid white;
+        }
 
         @media (max-width: 850px) {
             .carrito-wrapper { grid-template-columns: 1fr; }
         }
-        /* Ajuste para que el contador se vea perfecto en el carrito */
-.cart-link {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-#cart-count {
-    position: absolute;
-    top: -5px;
-    right: -10px;
-    background-color: #ff4757; /* Color rojo/rosado */
-    color: white;
-    font-size: 0.75rem;
-    padding: 2px 6px;
-    border-radius: 50%;
-    font-weight: bold;
-    min-width: 18px;
-    height: 18px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
     </style>
 </head>
 <body>
@@ -164,11 +144,11 @@
         </button>
     </aside>
 </div>
-    
 
 <script src="script.js"></script>
 
 </body>
 </html>
+
 
 
