@@ -125,3 +125,22 @@ document.addEventListener('DOMContentLoaded', () => {
     renderizarCarrito();
 
 });
+function agregarAlCarrito(producto, precio, botonPresionado) {
+    // ... tu código existente para guardar en el carrito ...
+
+    // Esto es lo que querías del color y el texto:
+    if (botonPresionado) {
+        const textoOriginal = botonPresionado.innerText;
+        const colorOriginal = botonPresionado.style.backgroundColor;
+
+        botonPresionado.innerText = "Añadido";
+        botonPresionado.style.backgroundColor = "#28a745"; // Verde
+
+        // Opcional: Que vuelva a la normalidad después de 2 segundos
+        setTimeout(() => {
+            botonPresionado.innerText = textoOriginal;
+            botonPresionado.style.backgroundColor = colorOriginal;
+        }, 2000);
+    }
+}
+
