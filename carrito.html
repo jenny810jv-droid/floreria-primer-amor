@@ -83,6 +83,29 @@
         @media (max-width: 850px) {
             .carrito-wrapper { grid-template-columns: 1fr; }
         }
+        /* Ajuste para que el contador se vea perfecto en el carrito */
+.cart-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+#cart-count {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: #ff4757; /* Color rojo/rosado */
+    color: white;
+    font-size: 0.75rem;
+    padding: 2px 6px;
+    border-radius: 50%;
+    font-weight: bold;
+    min-width: 18px;
+    height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
     </style>
 </head>
 <body>
@@ -141,9 +164,11 @@
         </button>
     </aside>
 </div>
+    
 
 <script src="script.js"></script>
 
 </body>
 </html>
+
 
