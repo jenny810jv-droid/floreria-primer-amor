@@ -47,6 +47,37 @@ function actualizarContador() {
         c.style.display = carrito.length > 0 ? "block" : "none";
     });
 }
+// --- 2. AGREGAR AL CARRITO (AUTOMÁTICO) ---
+window.agregarAlCarrito = function(nombre, precio, imagen) {
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    
+    // Guardamos el producto
+    carrito.push({ nombre, precio, imagen, cantidad: 1 });
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+
+    // BUSCAR EL BOTÓN DE FORMA AUTOMÁTICA
+    // Buscamos el botón que tenga el texto de este producto
+    const botones = document.querySelectorAll('button');
+    const botonPresionado = Array.from(botones).find(b => 
+        b.getAttribute('onclick') && b.getAttribute('onclick').includes(nombre)
+    );
+
+    if (botonPresionado) {
+        const textoOriginal = botonPresionado.innerText;
+        botonPresionado.innerText = "¡Añadido! ✓";
+        botonPresionado.style.backgroundColor = "#28a745"; // Verde
+        botonPresionado.style.color = "white";
+        
+        setTimeout(() => {
+            botonPresionado.innerText = textoOriginal;
+            botonPresionado.style.backgroundColor = ""; 
+            botonPresionado.style.color = "";
+        }, 2000);
+    }
+
+    actualizarContador();
+    if (document.getElementById('items-carrito')) renderizarCarrito();
+};
 
 // --- 4. RENDERIZAR CARRITO ---
 function renderizarCarrito() {
@@ -151,4 +182,5 @@ document.addEventListener('DOMContentLoaded', () => {
         btnPago.addEventListener('click', finalizarCompra);
     }
 });
+
 
