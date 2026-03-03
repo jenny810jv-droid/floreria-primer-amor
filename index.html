@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nombre de la Página | El Primer Amor</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Lato:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    
+    
+</head>
+<body>
+
+<nav class="navbar">
+    
+    <a href="index.html" class="logo"><b>El Primer</b> <span>Amor</span></a>
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Inicio</a></li> 
+            <li><a href="mantenimiento.html">Mantenimiento</a></li>
+            <li><a href="arreglos.html">Arreglos</a></li>
+            <li><a href="plantas.html">Plantas</a></li>
+            <li><a href="materas.html">Materas</a></li>
+            <li><a href="galeria.html">Galería</a></li>
+            <li><a href="carrito.html" class="cart-link">🛒 <span id="cart-count">0</span></a>
+        </li>
+        <li>
+            <a href="https://wa.me/573187092708" class="btn-wa" target="_blank">WhatsApp</a>
+        </li>
+    </ul>
+</nav>
+
+<header id="inicio" class="slider-container">
+    <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+    <button class="next" onclick="moveSlide(1)">&#10095;</button>
+
+    <div class="slider">
+        <div class="slide active">
+            <img src="img/banner1.jpeg" alt="Flores Bogotá">
+            <div class="hero-content-slider">
+                <h1>Hagamos Florecer<br>Tus Ideas</h1>
+                <p>Diseño floral con carácter para tus momentos más especiales.</p>
+                <a href="arreglos.html" class="btn-main">Ver Catálogo</a>
+            </div>
+        </div>
+
+        <div class="slide">
+            <img src="img/banner2.jpg" alt="Plantas de Interior">
+            <div class="hero-content-slider">
+                <h1>Naturaleza<br>en tu Hogar</h1>
+                <p>Selección exclusiva de plantas para transformar tus espacios.</p>
+                <a href="plantas.html" class="btn-main">Ver Plantas</a>
+            </div>
+        </div>
+
+        <div class="slide">
+            <img src="img/banner3.jpg" alt="Mantenimiento Botánico">
+            <div class="hero-content-slider">
+                <h1>Cuidado<br>Profesional</h1>
+                <p>Mantenimiento técnico para que tus plantas siempre luzcan sanas.</p>
+                <a href="mantenimiento.html" class="btn-main">Saber Más</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="dots">
+        <span class="dot active" onclick="currentSlide(0)"></span>
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+    </div>
+</header>
+
+
+<section id="mantenimiento" class="split-section">
+    <div class="split-container">
+        <div class="split-image" style="background-image: url('img/mantenimiento.jpg');"></div>
+        <div class="split-text">
+            <span>Cuidado Botánico</span>
+            <h2>Mantenimiento de Plantas</h2>
+            <p>Brindamos servicio técnico profesional para que tus espacios verdes siempre luzcan perfectos.</p>
+            <ul class="list-bullets">
+                <li>✓ Abono orgánico y nutrición</li>
+                <li>✓ Control de plagas</li>
+                <li>✓ Poda estética</li>
+            </ul>
+            <a href="mantenimiento.html" class="btn-outline">Saber más</a>
+        </div>
+    </div>
+</section>
+
+<section id="detalles" class="split-section reverse">
+    <div class="split-container">
+        <div class="split-image" style="background-image: url('img/detalles.jpg');"></div>
+        <div class="split-text">
+            <span>Momentos Inolvidables</span>
+            <h2>Arreglos y Detalles</h2>
+            <p>Sabemos que cada detalle cuenta. Creamos diseños pensados para expresar lo que sientes.</p>
+            <a href="arreglos.html" class="btn-outline">Ver Arreglos</a>
+        </div>
+    </div>
+</section>
+
+<section id="plantas" class="split-section">
+    <div class="split-container">
+        <div class="split-image" style="background-image: url('img/plantas-venta.jpg');"></div>
+        <div class="split-text">
+            <span>Naturaleza en Casa</span>
+            <h2>Venta de Plantas</h2>
+            <p>Lleva vida a tus espacios con nuestra selección de plantas de interior y exterior.</p>
+            <a href="plantas.html" class="btn-outline">Ver Plantas</a>
+        </div>
+    </div>
+</section>
+
+<section id="materas" class="split-section reverse">
+    <div class="split-container">
+        <div class="split-image" style="background-image: url('img/materas.jpg');"></div>
+        <div class="split-text">
+            <span>Complementos</span>
+            <h2>Materas Decorativas</h2>
+            <p>Vendemos materas exclusivas que resaltan la belleza de tus plantas y combinan con tu hogar.</p>
+            <a href="materas.html" class="btn-outline">Ver Materas</a>
+        </div>
+    </div>
+</section>
+
+<script src="script.js"></script>
+<script>
+    // Esta función sincroniza el número del carrito al cargar cualquier página
+    function actualizarContadorGlobal() {
+        const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        // Sumamos todas las cantidades de los productos guardados
+        const total = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+        const badge = document.getElementById('cart-count');
+        
+        if (badge) {
+            badge.innerText = total;
+        }
+    }
+
+    // Se ejecuta apenas abre la página
+    actualizarContadorGlobal();
+    let currentIdx = 0;
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+
+    function showSlide(index) {
+        if (index >= slides.length) currentIdx = 0;
+        else if (index < 0) currentIdx = slides.length - 1;
+        else currentIdx = index;
+
+        slides.forEach(s => s.classList.remove('active'));
+        dots.forEach(d => d.classList.remove('active'));
+
+        slides[currentIdx].classList.add('active');
+        dots[currentIdx].classList.add('active');
+    }
+
+    function moveSlide(n) {
+        showSlide(currentIdx + n);
+    }
+
+    function currentSlide(n) {
+        showSlide(n);
+    }
+
+    // Cambio automático cada 6 segundos
+    setInterval(() => moveSlide(1), 6000);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo | El Primer Amor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    
+    <title>Nombre de la Página | El Primer Amor</title>
+</head>
+<body>
+
+<nav class="navbar">
+    <a href="index.html" class="logo">El Primer <span>Amor</span></a>
+    <div class="menu-toggle" id="mobile-menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </div>
+    
+    <ul class="nav-links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="mantenimiento.html">Mantenimiento</a></li>
+        <li><a href="arreglos.html" class="active">Arreglos</a></li> <li><a href="plantas.html">Plantas</a></li>
+        <li><a href="materas.html">Materas</a></li>
+        <li><a href="galeria.html">Galería</a></li>
+        <li><a href="carrito.html" class="cart-link">🛒 <span id="cart-count">0</span></a></li>
+        <li><a href="https://wa.me/573187092708" class="btn-wa" target="_blank">WhatsApp</a></li>
+    </ul>
+</nav>
+
+<header class="header-productos">
+    <h1>Catálogo Arreglos Florales</h1>
+    <p>Diseños exclusivos para cada momento especial</p>
+</header>
+
+<main class="catalogo-container">
+    <div id="product-grid" class="product-grid"></div>
+</main>        
+
+<script>
+    // 1. LISTA DE ARREGLOS CORREGIDA (Se agregaron flores y cantidades faltantes)
+    const arreglos = [
+        { id: 1, nombre: "Sueño de Amor", precio: 180000, cant: 48, flor: "Rosas", desc: "Rosas. Ideal para sentimientos profundos.", cat: "Base Plástica" },
+        { id: 2, nombre: "Sol Radiante", precio: 170000, cant: 48, flor: "Rosas", desc: "Rosas amarillas. Luz y optimismo para celebrar.", cat: "Base Plástica" },
+        { id: 3, nombre: "Encanto Silvestre", precio: 150000, cant: 24, flor: "Rosas", desc: "Rosas salmón. Belleza pura y silvestre.", cat: "Caja Redonda" },
+        { id: 4, nombre: "Tesoro de Jardín", precio: 165000, cant: 24, flor: "Flores", desc: "Rosas y Gerberas. Colores vivos de la naturaleza.", cat: "Base Plástica" },
+        { id: 5, nombre: "Dulce Amor", precio: 170000, cant: 24, flor: "Rosas", desc: "Rosas amarillas y Paniculata. Pura felicidad.", cat: "Grande - 24 Flores" },
+        { id: 6, nombre: "Amanecer Dorado", precio: 250000, cant: 36, flor: "Lirios", desc: "Hortensias y Lirios. Momentos dulces de la vida.", cat: "Base Plástica" },
+        { id: 7, nombre: "Corazón Valiente", precio: 140000, cant: 24, flor: "Rosas", desc: "Rosas. Coraje de amar, sentimiento fuerte.", cat: "Base Plástica" },
+        { id: 8, nombre: "Fuerza y Armonía", precio: 155000, cant: 30, flor: "Flores", desc: "Amor fuerte y hermoso, diseño equilibrado.", cat: "Diseño Especial" },
+        { id: 9, nombre: "Nube de Ternura", precio: 130000, cant: 24, flor: "Rosas", desc: "Combinación de tonos pasteles y texturas suaves.", cat: "Caja Premium" },
+        { id: 10, nombre: "Pasión Clásica", precio: 190000, cant: 24, flor: "Rosas", desc: "Rosas rojas premium de tallo largo.", cat: "Florero Vidrio" },
+        { id: 11, nombre: "Brisa de Verano", precio: 115000, cant: 12, flor: "Girasoles", desc: "Girasoles y flores de campo frescas.", cat: "Ramo Tejido" },
+        { id: 12, nombre: "Elegancia Pura", precio: 210000, cant: 15, flor: "Lirios", desc: "Lirios blancos y follaje plateado.", cat: "Base Cerámica" },
+        { id: 13, nombre: "Cesta Primaveral", precio: 145000, cant: 30, flor: "Flores", desc: "Variedad de flores de estación multicolores.", cat: "Cesta Mimbre" },
+        { id: 14, nombre: "Abrazo de Oso", precio: 175000, cant: 12, flor: "Rosas", desc: "Arreglo floral acompañado de peluche pequeño.", cat: "Combo Regalo" },
+        { id: 15, nombre: "Noche de Estrellas", precio: 160000, cant: 18, flor: "Flores", desc: "Flores exóticas en tonos azules y blancos.", cat: "Base Moderna" },
+        { id: 16, nombre: "Rayo de Luna", precio: 135000, cant: 24, flor: "Rosas", desc: "Rosas blancas y astromelias.", cat: "Base Madera" },
+        { id: 17, nombre: "Jardín Secreto", precio: 220000, cant: 10, flor: "Orquídeas", desc: "Orquídeas y follaje tropical fino.", cat: "Caja Luxury" },
+        { id: 18, nombre: "Destello de Alegría", precio: 95000, cant: 10, flor: "Gerberas", desc: "Arreglo compacto de gerberas brillantes.", cat: "Base Pequeña" },
+        { id: 19, nombre: "Sinfonía Floral", precio: 280000, cant: 60, flor: "Flores", desc: "Arreglo de lujo con más de 60 flores mixtas.", cat: "Gran Formato" },
+        { id: 20, nombre: "Afecto Sincero", precio: 125000, cant: 24, flor: "Claveles", desc: "Claveles y margaritas en diseño tierno.", cat: "Caja Craft" },
+        { id: 21, nombre: "Luz de Esperanza", precio: 150000, cant: 24, flor: "Flores", desc: "Flores blancas para transmitir paz.", cat: "Base Plástica" },
+        { id: 22, nombre: "Amor Infinito", precio: 320000, cant: 100, flor: "Rosas", desc: "Rosas rojas.", cat: "Estructura XL" },
+        //{ id: 23, nombre: "Detalle Coqueto", precio: 85000, cant: 15, flor: "Mini Rosas", desc: "Mini rosas en caja decorativa.", cat: "Mini Box" },
+        //{ id: 24, nombre: "Cascada de Color", precio: 168000, cant: 20, flor: "Flores", desc: "Flores variadas con efecto caída.", cat: "Base Alta" },
+        //{ id: 25, nombre: "Susurro del Campo", precio: 110000, cant: 18, flor: "Flores", desc: "Flores silvestres muy frescas.", cat: "Atado Rústico" },
+        //{ id: 26, nombre: "Gala Real", precio: 240000, cant: 30, flor: "Flores", desc: "Rosas, Lirios y Anturios.", cat: "Caja Velvet" },
+        //{ id: 27, nombre: "Dulce Despertar", precio: 142000, cant: 20, flor: "Flores", desc: "Colores pasteles para mañanas felices.", cat: "Base Cerámica" },
+        //{ id: 28, nombre: "Pasión Intensa", precio: 195000, cant: 24, flor: "Rosas", desc: "Rosas y chocolates seleccionados.", cat: "Combo Amor" },
+        //{ id: 29, nombre: "Jardín de Hadas", precio: 160000, cant: 15, flor: "Flores", desc: "Miniatura floral con detalles mágicos.", cat: "Base Cristal" },
+        //{ id: 30, nombre: "Esencia de Amor", precio: 175000, cant: 24, flor: "Rosas", desc: "El arreglo insignia de nuestra casa.", cat: "Diseño Único" }
+    ];
+
+    const grid = document.getElementById('product-grid');
+    
+    arreglos.forEach((p, index) => {
+        grid.innerHTML += `
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="img/${p.id}.jpg" alt="${p.nombre}">
+                </div>
+                <div class="product-info">
+                    <p class="category">${p.cat}</p>
+                    <h3>${p.nombre}</h3>
+                    <p class="specs-text">Cantidad: <span class="flower-count">${p.cant}</span> ${p.flor}</p>
+                    <p class="description">${p.desc}</p>
+                    
+                    <div class="size-options">
+                        <button type="button" class="size-btn active" onclick="updateSize(this, 'grande', ${p.precio}, ${p.cant})">Grande</button>
+                        <button type="button" class="size-btn" onclick="updateSize(this, 'pequeno', ${p.precio}, ${p.cant})">Pequeño</button>
+                    </div>
+
+                    <div class="card-footer">
+                        <span class="price">$${p.precio.toLocaleString('es-CO')}</span>
+                        <button class="btn-cart" onclick="addToCart('${p.nombre}', this)">Añadir</button>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+
+    function updateSize(btn, size, precioBase, cantBase) {
+        const card = btn.closest('.product-card');
+        
+        // Manejo de botones activos
+        card.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const priceDisplay = card.querySelector('.price');
+        const countDisplay = card.querySelector('.flower-count');
+
+        if (size === "pequeno") {
+            const nuevoPrecio = Math.round(precioBase * 0.6 / 1000) * 1000;
+            const nuevasFlores = Math.round(cantBase / 2);
+            priceDisplay.innerText = "$" + nuevoPrecio.toLocaleString('es-CO');
+            countDisplay.innerText = nuevasFlores;
+            countDisplay.style.color = "#a10000"; 
+        } else {
+            priceDisplay.innerText = "$" + precioBase.toLocaleString('es-CO');
+            countDisplay.innerText = cantBase;
+            countDisplay.style.color = "inherit";
+        }
+        
+    }
+    
+function addToCart(nombre, btn) {
+        const card = btn.closest('.product-card');
+        const precioTexto = card.querySelector('.price').innerText;
+        const precio = parseInt(precioTexto.replace(/[^0-9]/g, ''));
+        const tamano = card.querySelector('.size-btn.active').innerText;
+        const imagen = card.querySelector('.product-image img').src;
+
+        const producto = {
+            nombre: nombre,
+            precio: precio,
+            tamano: tamano,
+            imagen: imagen,
+            cantidad: 1
+        };
+
+        let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        const existe = carrito.find(item => item.nombre === producto.nombre && item.tamano === producto.tamano);
+
+        if (existe) {
+            existe.cantidad++;
+        } else {
+            carrito.push(producto);
+        }
+
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+        actualizarContadorCarrito();
+
+        const textoOriginal = btn.innerText;
+        btn.innerText = "¡Añadido! ✓";
+        btn.style.backgroundColor = "#25D366";
+        
+        setTimeout(() => {
+            btn.innerText = textoOriginal;
+            btn.style.backgroundColor = ""; 
+        }, 1500);
+    }
+
+    function actualizarContadorCarrito() {
+        const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        const total = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+        const badge = document.getElementById('cart-count');
+        if(badge) badge.innerText = total;
+    }
+
+    actualizarContadorCarrito();
+</script>
+<script>
+    // Esta función sincroniza el número del carrito al cargar cualquier página
+    function actualizarContadorGlobal() {
+        const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        // Sumamos todas las cantidades de los productos guardados
+        const total = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+        const badge = document.getElementById('cart-count');
+        
+        if (badge) {
+            badge.innerText = total;
+        }
+    }
+
+    // Se ejecuta apenas abre la página
+    actualizarContadorGlobal();
+</script>
+<script src="script.js"></script>
+</body>
+</html>

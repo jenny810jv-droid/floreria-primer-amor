@@ -1,0 +1,1532 @@
+html {
+    scroll-behavior: smooth;
+    overflow-y: scroll; /* ESTO ELIMINA EL SALTO LATERAL */
+}
+
+/* También, para que el logo no "tiemble" mientras carga la imagen, 
+dale un tamaño fijo en el CSS */
+.logo {
+    min-width: 220px; 
+    height: 40px;
+}
+/* --- VARIABLES Y RESET --- */
+:root {
+    --navy: #0a1a44;
+    --verde-wa: #25D366;
+    --verde-hover: #128C7E;
+    --fuente-titulos: 'Playfair Display', serif;
+    --fuente-textos: 'Lato', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; 
+       overflow-y: scroll; /* Obliga a que siempre aparezca el carril del scroll */
+}
+
+body {
+    font-family: var(--fuente-textos);
+    background-color: #fff;
+    color: #333;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* --- NAVEGACIÓN LIMPIA CON ISOTIPO --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    background-color: #ffffff; /* Fondo blanco */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05); /* Sombra muy sutil */
+}
+
+/* Contenedor que agrupa el dibujo y el texto */
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 12px; /* Espacio entre el isotipo y el texto */
+    text-decoration: none !important;
+}
+
+/* El isotipo que hiciste en Illustrator */
+.nav-logo-icon {
+    height: 45px; /* Tamaño ideal para que destaque sin estorbar */
+    width: auto;
+    display: block;
+}
+
+/* Texto "El Primer" */
+.logo {
+    font-family: var(--fuente-titulos);
+    font-size: 1.6rem;
+    color: var(--navy); /* Azul oscuro para las letras */
+    font-weight: 400; 
+    margin: 0;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+/* Texto "Amor" (Sin negrilla) */
+.logo span {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.2rem;
+    color: #0a1a44; /* Dorado */
+    font-weight: 400 !important; /* ESTO QUITA LA NEGRILLA */
+    margin-left: 8px;
+    line-height: 1;
+}
+
+/* Ajuste de los links para fondo blanco */
+.nav-links a {
+    text-decoration: none;
+    color: var(--navy);
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: #0a1a44;
+}
+
+/* BOTÓN WHATSAPP */
+.btn-wa {
+    background: var(--verde-wa);
+    color: white !important;
+    padding: 10px 18px !important;
+    border-radius: 50px;
+    font-weight: bold;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s;
+    text-transform: none !important;
+}
+
+.btn-wa:hover {
+    background: var(--verde-hover);
+    transform: translateY(-2px);
+}
+
+/* CARRITO */
+.cart-link {
+    font-size: 1.2rem;
+    position: relative;
+    text-decoration: none;
+}
+
+#cart-count {
+    background: #ff4757;
+    color: white;
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 50%;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+}
+
+/* --- CARRUSEL (HERO) --- */
+.hero-slider {
+    width: 100%;
+    height: 400px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    position: relative;
+    background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('img/flores-inicio.jpeg');
+}
+
+.hero-content { position: relative; z-index: 10; max-width: 800px; padding: 20px; }
+.hero-content h1 { font-family: var(--fuente-titulos); font-size: 3.5rem; margin-bottom: 20px; line-height: 1.2; }
+.hero-content p { font-size: 1.2rem; margin-bottom: 30px; }
+
+.btn-main {
+    background: var(--navy);
+    color: white;
+    padding: 12px 30px;
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 4px;
+}
+
+/* --- SECCIONES DIVIDIDAS (ZIG-ZAG) --- */
+.split-section { 
+    padding: 80px 5%; 
+    background: #fff; 
+    width: 100%; 
+}
+
+.split-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap; /* Permite que bajen en pantalla dividida */
+}
+
+.reverse .split-container { flex-direction: row-reverse; }
+
+.split-image {
+    flex: 1;
+    min-width: 350px; /* Evita que la imagen desaparezca en pantalla dividida */
+    height: 450px;
+    border-radius: 20px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.split-text { 
+    flex: 1; 
+    min-width: 300px; 
+    text-align: left; /* Asegura alineación a la izquierda en pantalla grande */
+}
+
+.split-text span { color: var(--navy); text-transform: uppercase; font-weight: bold; letter-spacing: 2px; display: block; margin-bottom: 10px; }
+.split-text h2 { font-family: var(--fuente-titulos); font-size: 2.8rem; color: var(--navy); margin-bottom: 20px; line-height: 1.1; }
+.split-text p { font-size: 1.1rem; color: #555; margin-bottom: 25px; }
+
+/* LISTAS DE MANTENIMIENTO */
+.list-bullets {
+    list-style: none;
+    margin-bottom: 25px;
+    padding: 0;
+}
+
+.list-bullets li {
+    font-weight: bold;
+    color: var(--navy);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 1.1rem;
+}
+
+.btn-outline {
+    display: inline-block;
+    padding: 12px 25px;
+    border: 2px solid var(--navy);
+    color: var(--navy);
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: 0.3s;
+}
+
+.btn-outline:hover { background: var(--navy); color: white; }
+
+/* --- RESPONSIVE / PANTALLA DIVIDIDA --- */
+
+/* 1. Ajuste para cuando la pantalla empieza a estrecharse (Dividida) */
+@media (max-width: 1100px) {
+    .split-container {
+        gap: 30px;
+    }
+    .split-image {
+        min-width: 100%; /* La imagen toma todo el ancho arriba */
+        height: 350px;
+    }
+    .split-text {
+        text-align: center; /* Centramos el texto solo aquí */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .list-bullets {
+        display: inline-block;
+        text-align: left; /* La lista se centra pero sus textos miran a la izquierda */
+        margin: 0 auto 25px;
+    }
+    /* Reducimos la navbar para que no se choque */
+    .navbar { padding: 10px 2%; }
+    .nav-links { gap: 8px; }
+    .nav-links a { font-size: 0.65rem; }
+    .logo { font-size: 1.2rem;}
+    .logo span { font-size: 1.8rem; }
+}
+
+/* 2. Ajuste para Celulares */
+@media (max-width: 768px) {
+    .hero-content h1 { font-size: 2.2rem; }
+    .split-section { padding: 40px 5%; }
+    .split-text h2 { font-size: 2rem; }
+}
+/* --- PAGINA MANTENIMIENTO --- */
+.hero-mantenimiento {
+    height: 300px;
+    background: linear-gradient(rgba(10, 26, 68, 0.7), rgba(10, 26, 68, 0.7)), url('img/hero-mant.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+}
+
+.section-title {
+    text-align: center;
+    padding: 60px 5% 40px;
+}
+
+.section-title span { color: var(--verde-wa); font-weight: bold; text-transform: uppercase; }
+.section-title h2 { font-family: var(--fuente-titulos); font-size: 2.5rem; color: var(--navy); }
+
+/* --- CONTENEDOR DE LA GALERÍA --- */
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Fuerza las 3 columnas */
+    gap: 25px;
+    padding: 0 5% 80px;
+}
+
+.portfolio-item {
+    position: relative;
+    height: 400px; /* Un poco más alto para que quepa bien el texto */
+    border-radius: 15px;
+    overflow: hidden;
+    background: #0a1a44; 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.portfolio-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Título que siempre se ve al inicio */
+.service-title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(transparent, rgba(10, 26, 68, 0.95));
+    color: white;
+    padding: 25px 15px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-align: center;
+    z-index: 5;
+    transition: opacity 0.3s ease;
+}
+
+/* Overlay que sube al pasar el mouse */
+.portfolio-overlay {
+    position: absolute;
+    top: 100%; /* Escondido abajo */
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 26, 68, 0.9); /* Azul marino traslúcido */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+    transition: top 0.5s ease-in-out;
+    z-index: 10;
+}
+
+.overlay-info {
+    color: white;
+    text-align: center;
+}
+
+.overlay-info h4 {
+    font-family: var(--fuente-titulos);
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.overlay-info p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* --- INTERACCIÓN (HOVER) --- */
+.portfolio-item:hover .portfolio-overlay {
+    top: 0; /* Sube al tope */
+}
+
+.portfolio-item:hover .service-title {
+    opacity: 0; /* Desaparece el título de abajo para leer la descripción */
+}
+
+.portfolio-item:hover img {
+    transform: scale(1.1); /* Zoom a la foto */
+}
+
+/* RESPONSIVE */
+@media (max-width: 1100px) {
+    .portfolio-grid { grid-template-columns: repeat(2, 1fr); } /* 2 columnas en pantalla dividida */
+}
+
+@media (max-width: 700px) {
+    .portfolio-grid { grid-template-columns: 1fr; } /* 1 columna en móvil */
+}
+/* SECCIÓN FINAL */
+.cta-mantenimiento {
+    background: #f4f7f6;
+    padding: 80px 5%;
+    text-align: center;
+}
+
+.cta-mantenimiento h3 { font-family: var(--fuente-titulos); font-size: 2.2rem; color: var(--navy); margin-bottom: 20px; }
+.btn-wa-large {
+    display: inline-block;
+    background: var(--verde-wa);
+    color: white;
+    padding: 15px 40px;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: 0.3s;
+}
+.btn-wa-large:hover { background: var(--verde-hover); transform: scale(1.05); }
+/* --- NUEVA INTRO DE MANTENIMIENTO --- */
+.intro-mantenimiento {
+    padding: 100px 5% 60px;
+    background-color: #ffffff;
+    text-align: center;
+}
+
+.intro-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.intro-content span {
+    color: var(--verde-wa);
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.intro-content h2 {
+    font-family: var(--fuente-titulos);
+    font-size: 3rem;
+    color: var(--navy);
+    margin: 15px 0 25px;
+}
+
+.intro-content p {
+    font-size: 1.1rem;
+    color: #666;
+    max-width: 800px;
+    margin: 0 auto 50px;
+}
+
+/* GRID DE METODOLOGÍA */
+.metodologia-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.metodo-item {
+    padding: 20px;
+    transition: 0.3s;
+}
+
+.metodo-item .icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.metodo-item h4 {
+    font-family: var(--fuente-titulos);
+    color: var(--navy);
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+}
+
+.metodo-item p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin-bottom: 0;
+}
+
+/* Responsive */
+@media (max-width: 850px) {
+    .metodologia-grid {
+        grid-template-columns: 1fr;
+    }
+    .intro-content h2 { font-size: 2.2rem; }
+}
+/* --- HERO DE TRANSFORMACIÓN (ANTES Y DESPUÉS) --- */
+.transformation-hero {
+    padding: 60px 5%;
+    background: #fcfcfc; /* Un fondo casi blanco para que resalten las fotos */
+    overflow: hidden;
+}
+
+.transformation-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    position: relative;
+}
+
+.before-card, .after-card {
+    flex: 0 0 400px;
+    height: 450px;
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    transition: transform 0.4s ease;
+}
+
+.before-card img, .after-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* El "Antes" se ve un poco más opaco para dar drama */
+.before-card img {
+    filter: grayscale(40%) brightness(0.8);
+}
+
+/* El "Después" se ve nítido y brillante */
+.after-card img {
+    filter: saturate(1.2);
+}
+
+/* Texto del centro */
+.transformation-text {
+    flex: 0 0 300px; /* Ancho fijo para el texto */
+    text-align: center;
+    padding: 0 20px;
+    z-index: 10;
+}
+
+.transformation-text h2 {
+    font-family: var(--fuente-titulos);
+    font-size: 2.2rem;
+    color: var(--navy);
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.transformation-text p {
+    font-size: 1rem;
+    color: #666;
+}
+
+/* Etiquetas de "Antes" y "Después" */
+.status-tag {
+    position: absolute;
+    top: 20px;
+    padding: 8px 20px;
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--navy);
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    border-radius: 50px;
+}
+
+.before-card .status-tag { left: 20px; }
+.after-card .status-tag { right: 20px; background: var(--verde-wa); color: white; }
+
+/* Animación al pasar el mouse */
+.before-card:hover, .after-card:hover {
+    transform: translateY(-10px);
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .transformation-container {
+        flex-direction: column;
+    }
+    .before-card, .after-card {
+        width: 100%;
+        height: 300px;
+    }
+    .transformation-text {
+        order: -1; /* Pone el texto arriba de las fotos en móvil */
+        flex: auto;
+        margin-bottom: 30px;
+    }
+}
+/* --- MEJORAS ESTÉTICAS --- */
+.header-productos {
+    background: linear-gradient(rgba(10, 26, 68, 0.8), rgba(10, 26, 68, 0.8)), url('img/banner-arreglos.jpg');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 100px 5%;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.product-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px); /* Efecto cristal */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.product-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 20px 40px rgba(10, 26, 68, 0.15);
+}
+
+.product-info h3 {
+    font-family: var(--fuente-titulos);
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+    color: var(--navy);
+}
+
+.specs {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: var(--verde-wa);
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.description {
+    font-size: 0.95rem;
+    line-height: 1.4;
+    color: #666;
+    height: 65px; /* Mantiene la alineación */
+    overflow: hidden;
+}
+
+.price {
+    font-size: 1.4rem;
+    color: var(--navy);
+    font-weight: 700;
+    margin: 15px 0;
+}
+
+.btn-add {
+    background: var(--navy);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 50px;
+    width: 100%;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-add:hover {
+    background: var(--verde-wa);
+    box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+}
+
+/* Tag de categoría */
+.tag {
+    background: var(--verde-wa);
+    padding: 5px 15px;
+    border-radius: 0 20px 20px 0;
+    font-size: 0.75rem;
+    top: 20px;
+}
+/* --- ESTILOS PARA LA PÁGINA DE ARREGLOS --- */
+
+/* ================================================= */
+/* ESTILOS ESPECÍFICOS PARA PÁGINA DE ARREGLOS     */
+/* ================================================= */
+
+/* 1. Header / Banner Superior */
+.header-productos {
+    position: relative;
+    height: 450px; 
+    /* La imagen se carga aquí. El linear-gradient es el filtro oscuro */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                      url('img/banner-floral-dark.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Este es el efecto de movimiento pro */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+}
+
+.header-productos h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+}
+.header-productos::after {
+    content: '';
+    width: 80px;
+    height: 3px;
+    background-color: #d4a373; 
+    margin-top: 20px;
+}
+
+/* 2. Contenedor de la Galería (4 Columnas) */
+.catalogo-container {
+    background-color: #f8f9fa; /* Fondo gris muy suave para resaltar las cards */
+    padding: 40px 0 80px;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 Columnas exactas */
+    gap: 25px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 5%;
+}
+
+/* 3. Tarjeta de Producto (Card) */
+.product-card {
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(10, 26, 68, 0.12);
+    border-color: var(--verde-wa);
+}
+
+/* 4. Imagen del Producto */
+.product-image {
+    height: 280px; /* Altura controlada para 4 columnas */
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.product-card:hover .product-image img {
+    transform: scale(1.1);
+}
+
+/* 5. Información del Producto */
+.product-info {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.category {
+    font-size: 0.7rem;
+    color: var(--verde-wa);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 8px;
+}
+
+.product-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--navy);
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.description {
+    font-size: 0.85rem;
+    color: #666;
+    line-height: 1.4;
+    height: 45px; /* Alinea los footers aunque cambie el texto */
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+/* 6. Selector de Tamaños (El detalle que pediste) */
+.size-selector {
+    margin-bottom: 15px;
+}
+
+.size-selector label {
+    display: block;
+    font-size: 0.75rem;
+    color: #999;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.size-select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.85rem;
+    color: var(--navy);
+    background: #fdfdfd;
+    cursor: pointer;
+}
+
+/* 7. Pie de Tarjeta (Precio y Botón) */
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 15px;
+    border-top: 1px solid #f5f5f5;
+}
+
+.price {
+    font-size: 1.25rem;
+    font-weight: 900;
+    color: var(--navy);
+    transition: opacity 0.2s;
+}
+
+.btn-cart {
+    background: var(--navy);
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-cart:hover {
+    background: var(--verde-wa);
+}
+
+/* 8. Adaptabilidad (Responsive) */
+
+/* Pantallas medianas (Tablets) - 2 Columnas */
+@media (max-width: 1100px) {
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Pantallas pequeñas (Móviles) - 1 Columna */
+@media (max-width: 650px) {
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+    .header-productos h1 {
+        font-size: 2rem;
+    }
+    .product-image {
+        height: 350px;
+    }
+}
+/* ================================================= */
+/* NUEVOS ESTILOS PARA BOTONES MODERNOS Y CARD       */
+/* ================================================= */
+
+/* Contenedor de las opciones de tamaño */
+.size-options {
+    display: flex;
+    gap: 8px;
+    margin: 10px 0 15px 0;
+}
+
+/* Estilo de los botones tipo "Chip" */
+.size-btn {
+    flex: 1;
+    padding: 8px 5px;
+    border: 1px solid #ddd;
+    background: white;
+    color: #666;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+/* Estado ACTIVO (Cuando está seleccionado) */
+.size-btn.active {
+    background: var(--navy);
+    color: white;
+    border-color: var(--navy);
+}
+
+.size-btn:hover:not(.active) {
+    border-color: var(--navy);
+    color: var(--navy);
+}
+
+/* Ajuste de Texto Cantidad */
+.specs-text {
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: #444;
+    margin-bottom: 5px;
+}
+
+.flower-count {
+    transition: all 0.3s ease;
+}
+
+/* Re-ajuste de la descripción para que no ocupe tanto espacio */
+.description {
+    font-size: 0.85rem;
+    color: #777;
+    line-height: 1.3;
+    height: 3.9em; /* Aproximadamente 3 líneas */
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+/* Botón de añadir al carrito más estilizado */
+.btn-cart {
+    background: var(--navy);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-cart:hover {
+    background: #d4a373; /* Cambio a dorado al pasar el mouse */
+    transform: translateY(-2px);
+}
+.carrito-wrapper {
+    /* Bajamos de 120px a 60px para que suba el contenido */
+    padding: 60px 5% 60px; 
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 40px;
+}
+.section-title {
+    margin-top: 0; /* Elimina cualquier espacio extra que traiga el título por defecto */
+    margin-bottom: 20px;
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem; /* Lo bajamos un pelín para que no se coma la pantalla */
+    color: #0a1a44;
+}
+.header-plantas {
+    position: relative;
+    height: 500px; /* Un poco más alto para que el video luzca */
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+}
+
+.video-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: 1;
+    transform: translate(-50%, -50%);
+    object-fit: cover; /* Evita que el video se estire feo */
+}
+
+/* LA CAPA OSCURA: Aquí controlas el nivel de oscuridad */
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Negro al 50% de opacidad */
+    /* O puedes usar el azul de tu marca: rgba(10, 26, 68, 0.6) */
+    z-index: 2;
+}
+
+.header-content {
+    position: relative;
+    z-index: 3; /* Por encima del video y de la capa oscura */
+}
+
+.header-content h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 4.5rem;
+    text-shadow: 2px 2px 15px rgba(0,0,0,0.7); /* Sombra para máxima legibilidad */
+}
+
+.header-content p {
+    font-size: 1.4rem;
+    font-family: 'Lato', sans-serif;
+    letter-spacing: 1px;
+}
+.header-materas {
+    height: 400px;
+    /* Cambia 'img/banner-materas.jpg' por el nombre real de tu imagen */
+    background-image: linear-gradient(rgba(10, 26, 68, 0.5), rgba(10, 26, 68, 0.5)), 
+                      url('img/banner-materas.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Mantiene el efecto de desplazamiento elegante */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+}
+
+.header-materas h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+}
+
+.header-materas p {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+}
+/* Ajustes para el Slider */
+.slider-container {
+    position: relative;
+    width: 100%;
+    height: 450px; /* Ocupa toda la pantalla inicial */
+    overflow: hidden;
+}
+
+.slider {
+    width: 100%;
+    height: 100%;
+}
+
+.slide {
+    display: none;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    animation: fade 1.2s;
+}
+
+.slide.active { display: block; }
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.slide::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); /* Capa oscura sutil */
+    z-index: 5;
+}
+
+/* El cuadro de texto central (Hero Content) */
+.hero-content-slider {
+    position: absolute; /* Esto es vital para que flote sobre la imagen */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 15; /* Lo ponemos por encima de las imágenes */
+    text-align: center;
+    width: 100%;
+    max-width: 800px;
+    padding: 0 20px;
+}
+.hero-content-slider h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    color: white;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.5); /* Sombra para leer mejor */
+    margin-bottom: 20px;
+}
+
+.hero-content-slider p {
+    color: white;
+    margin-bottom: 30px;
+    font-size: 1.2rem;
+}
+
+/* El botón ahora tendrá más presencia */
+.btn-main {
+    display: inline-block;
+    padding: 15px 35px;
+    background-color: #0a1a44; /* Tu azul oscuro */
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: 0.3s;
+    border: 1px solid white;
+}
+
+/* Flechas de navegación */
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.2);
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    padding: 15px 10px;
+    cursor: pointer;
+    z-index: 10;
+    transition: 0.3s;
+}
+.prev { left: 0; border-radius: 0 5px 5px 0; }
+.next { right: 0; border-radius: 5px 0 0 5px; }
+.prev:hover, .next:hover { 
+    background: rgba(10, 26, 68, 0.8); /* Azul de tu marca en lugar de gris */
+}
+
+/* Indicadores de puntos */
+.dots {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+.dot {
+    height: 12px;
+    width: 12px;
+    margin: 0 5px;
+    background-color: rgba(255,255,255,0.4);
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+}
+.dot.active { background-color: white; }
+
+@keyframes fade {
+    from { opacity: 0.6; } 
+    to { opacity: 1; }
+}
+/* Contenedor de cuidados */
+.plant-care-icons {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+    margin: 15px 0;
+    padding: 10px 0;
+    border-top: 1px dashed #eee;
+    border-bottom: 1px dashed #eee;
+}
+
+.care-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.7rem;
+    color: #555;
+    flex: 1;
+}
+
+.care-item i {
+    font-size: 1.1rem;
+    color: #0a1a44; /* El azul de tu marca */
+    margin-bottom: 4px;
+}
+
+.care-item span {
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.6rem;
+    color: #888;
+}
+.care-legend {
+    max-width: 1200px;
+    margin: 20px auto -30px; /* Margen negativo abajo para acercarlo a los productos */
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.legend-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    flex: 1;
+    padding: 0 20px;
+}
+
+.legend-item p {
+    font-size: 0.85rem;
+    color: #555;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-top: 4px;
+    flex-shrink: 0;
+}
+
+.facil { background-color: #25D366; }   /* Verde */
+.medio { background-color: #FFB300; }   /* Naranja/Amarillo */
+.dificil { background-color: #FF5252; } /* Rojo */
+
+@media (max-width: 768px) {
+    .care-legend { flex-direction: column; gap: 15px; margin: 20px 5%; }
+}
+/* --- FICHA DE CUIDADO REFORZADA --- */
+.plant-care-icons {
+    display: flex;
+    justify-content: space-between;
+    background: #fdfdfd;
+    padding: 15px 8px; /* Más espacio interno */
+    border-radius: 10px;
+    margin: 15px 0;
+    border: 1px solid #e0e0e0;
+}
+
+.care-item {
+    text-align: center;
+    flex: 1;
+    border-right: 1px solid #eee; /* Separador sutil entre items */
+}
+
+.care-item:last-child {
+    border-right: none;
+}
+
+.care-item span {
+    display: block;
+    font-size: 0.75rem; /* Antes era 0.6, ahora es más legible */
+    color: #777;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.care-item strong {
+    display: block;
+    font-size: 0.9rem; /* Texto principal más grande */
+    color: #0a1a44;
+    line-height: 1.2;
+}
+
+/* Ajuste extra para los botones P y G que también se ven pequeños */
+.size-btn {
+    flex: 1;
+    padding: 10px; /* Botones más altos para pulgares grandes */
+    font-size: 0.8rem;
+    font-weight: 800;
+}
+/* --- NAVEGACIÓN CORREGIDA (ANTI-BRINCO) --- */
+.nav-links { 
+    display: flex; 
+    list-style: none; 
+    gap: 20px; 
+    align-items: center;
+}
+
+.nav-links a { 
+    text-decoration: none; 
+    color: var(--navy); 
+    font-weight: 700; 
+    font-size: 0.75rem; 
+    text-transform: uppercase;
+    white-space: nowrap;
+    
+    /* LA CLAVE: Reservar el espacio del borde siempre */
+    display: inline-block;
+    padding-bottom: 4px; /* Espacio fijo para la raya */
+    border-bottom: 2px solid transparent; 
+    transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+/* Estado Activo: Solo cambia el color del borde, no el tamaño ni el padding */
+.nav-links a.active {
+    color: var(--navy) !important;
+    border-bottom: 2px solid var(--navy) !important;
+}
+
+/* Hover opcional: una raya más clara antes de hacer clic */
+.nav-links a:hover {
+    border-bottom: 2px solid rgba(10, 26, 68, 0.3);
+}
+
+/* Ajuste del Carrito para que no afecte la altura */
+.cart-link {
+    display: flex;
+    align-items: center;
+    border-bottom: none !important; /* El carrito no lleva raya */
+    padding-bottom: 0;
+}
+.nav-links a.active {
+    color: var(--navy) !important;
+    border-bottom: 2px}
+    /* 1. Aplicamos la imagen fija al fondo de toda la página */
+/* 1. Imagen de fondo fija */
+/* 1. Aplicamos la imagen fija al fondo de toda la página */
+/* 1. EL FONDO: Imagen fija que no se mueve */
+/* 1. FONDO DE LA IMAGEN (Igual que antes) */
+/* 1. FONDO FIJO EN TODA LA WEB */
+/* 1. EL FONDO GLOBAL: Imagen fija + Capa de color traslúcida */
+/* Aquí combinamos la imagen y el color en un solo paso */
+/* 1. FONDO GLOBAL PARA TODA LA WEB */
+body {
+    background-image: url('img/tu-fondo-oscuro.jpg'); /* Tu imagen de fondo principal */
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+}
+
+/* 2. LA CAPA TRASLÚCIDA (Unificada, sin bloques) */
+/* Usamos un "pseudo-elemento" que cubre todo el fondo sin tocar los banners */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.65); /* Color gris/negro traslúcido */
+    backdrop-filter: blur(9px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: -1; /* Se queda detrás del contenido */
+}
+
+/* 3. PROTECCIÓN DE BANNERS (Materas, Arreglos, Plantas) */
+/* Aquí está la clave: les devolvemos su imagen y su brillo */
+.header-productos, 
+.header-plantas, 
+.header-materas,
+.hero-slider {
+    position: relative;
+    z-index: 10;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    /* Esto quita el efecto borroso solo dentro del banner */
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    height: 400px; /* Ajusta a la altura que tenías */
+}
+
+/* 4. LIMPIEZA DE CONTENIDO */
+/* Hacemos que todo lo demás sea transparente para que se vea el fondo del body */
+main, .catalogo-container, .split-section {
+    background: transparent !important;
+}
+
+/* 5. TARJETAS SÓLIDAS */
+.product-card {
+    background: white !important; /* Para que las flores resalten */
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* 6. EVITAR EL SALTO */
+html { overflow-y: scroll; }
+/* --- ESTILOS DEL BOTÓN HAMBURGUESA --- */
+.menu-toggle {
+    display: none; /* Se esconde en computadores */
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+    z-index: 2100;
+}
+
+.menu-toggle .bar {
+    width: 30px;
+    height: 3px;
+    background-color: var(--navy);
+    transition: 0.3s;
+    border-radius: 5px;
+}
+
+/* --- RESPONSIVE (CELULARES) --- */
+@media (max-width: 900px) {
+    .menu-toggle {
+        display: flex; /* Aparece en móviles */
+    }
+
+    .nav-links {
+        position: fixed;
+        right: -100%; /* Empieza escondido a la derecha */
+        top: 80px;
+        background: white;
+        width: 100%;
+        height: 100vh;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding-top: 50px;
+        transition: 0.4s ease-in-out;
+        box-shadow: -5px 0 10px rgba(0,0,0,0.05);
+        gap: 25px;
+    }
+
+    .nav-links.active {
+        right: 0; /* Entra a la pantalla cuando se activa */
+    }
+
+    .nav-links li {
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-links a {
+        font-size: 1.1rem; /* Más grande para poder tocarlo con el dedo */
+    }
+}
+.shipping-info {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.shipping-info input, .shipping-info textarea {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: 'Lato', sans-serif;
+}
+
+.shipping-info textarea {
+    height: 80px;
+    resize: none;
+}
+
+.btn-pagar-mp {
+    background-color: #0a1a44; /* El azul oficial de Mercado Pago */
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+    width: 100%; /* Para que ocupe el ancho del formulario */
+    margin-top: 20px;
+}
+
+.btn-pagar-mp:hover {
+    background-color: #0a1a44;
+}
+/* --- MODAL MODERNO --- */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: none; /* Escondido por defecto */
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    backdrop-filter: blur(5px); /* Efecto borroso de fondo */
+}
+
+.modal-content {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    animation: aparecer 0.3s ease-out;
+}
+
+@keyframes aparecer {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-icon { font-size: 3rem; margin-bottom: 10px; }
+
+.modal-content h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--navy);
+    margin-bottom: 10px;
+}
+
+.total-destacado {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #d4af37; /* Tu dorado */
+    margin: 20px 0;
+    font-family: 'Lato', sans-serif;
+}
+
+.instruccion { font-size: 0.9rem; color: #666; margin-bottom: 25px; }
+
+.btn-continuar {
+    background: #009ee3;
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    border-radius: 10px;
+    width: 100%;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.btn-cancelar {
+    background: transparent;
+    color: #999;
+    border: none;
+    cursor: pointer;
+    font-size: 0.8rem;
+    text-decoration: underline;
+}

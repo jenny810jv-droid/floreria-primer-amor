@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu Pedido | El Primer Amor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    
+    <style>
+        body { background-color: #fdfbfb; }
+
+        .carrito-wrapper {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 5%;
+            align-items: start;
+        }
+
+        .section-title {
+            grid-column: 1 / -1;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #0a1a44;
+            margin-bottom: 20px;
+        }
+
+        /* Columna Izquierda: Productos */
+        .cart-items-list { display: flex; flex-direction: column; gap: 20px; }
+
+        .cart-card {
+            display: flex;
+            align-items: center;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        }
+
+        .cart-card img { width: 100px; height: 100px; object-fit: cover; border-radius: 12px; }
+        .cart-card-info { flex: 1; margin-left: 20px; }
+        .cart-card-info h4 { font-family: 'Playfair Display', serif; color: #0a1a44; margin: 0; }
+        .item-price { color: #d4a373; font-weight: bold; margin-top: 5px; }
+
+        .btn-remove {
+            background: #fff5f5; color: #ff4757; border: none;
+            width: 30px; height: 30px; border-radius: 50%; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        /* Columna Derecha: Sidebar */
+        .sidebar-box {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            position: sticky;
+            top: 100px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+        }
+
+        .resumen-linea { display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: bold; }
+        .resumen-linea.total { font-size: 1.4rem; color: #0a1a44; border-top: 2px solid #f9f9f9; padding-top: 15px; }
+
+        .input-group { margin-top: 15px; }
+        .input-group label { display: block; font-size: 0.8rem; color: #666; margin-bottom: 5px; }
+        .input-group input, .input-group textarea {
+            width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit;
+        }
+
+        .btn-pay-now {
+            width: 100%; background: #0a1a44; color: white; border: none;
+            padding: 20px; border-radius: 50px; font-size: 1.1rem; font-weight: bold;
+            cursor: pointer; margin-top: 20px; transition: 0.3s;
+        }
+        .btn-pay-now:hover { background: #d4a373; transform: translateY(-3px); }
+
+        .empty-state { text-align: center; padding: 100px 0; grid-column: 1 / -1; }
+
+        @media (max-width: 850px) {
+            .carrito-wrapper { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <a href="index.html" class="logo"><b>El Primer</b> <span>Amor</span></a>
+    <div class="menu-toggle" id="mobile-menu">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+    </div>
+    <ul class="nav-links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="mantenimiento.html">Mantenimiento</a></li>
+        <li><a href="arreglos.html">Arreglos</a></li>
+        <li><a href="plantas.html">Plantas</a></li> 
+        <li><a href="materas.html">Materas</a></li>
+        <li><a href="galeria.html">Galería</a></li>
+        <li><a href="carrito.html" class="cart-link active">🛒 <span id="cart-count">0</span></a></li>
+        <li><a href="https://wa.me/573187092708" class="btn-wa" target="_blank">WhatsApp</a></li>
+    </ul>
+</nav>
+</nav>
+
+<div class="carrito-wrapper">
+    <h1 class="section-title">Tu Pedido Especial</h1>
+    
+    <div id="cart-items-container" class="cart-items-list"></div>
+
+    <aside id="checkout-summary" class="sidebar-box">
+        <h3>Resumen del Pedido</h3>
+        <div class="resumen-linea">
+            <span>Subtotal:</span>
+            <span id="subtotal-val">$0</span>
+        </div>
+        <div class="resumen-linea">
+            <span>Envío (Bogotá):</span>
+            <span>$10,000</span>
+        </div>
+        <div class="resumen-linea total">
+            <span>Total:</span>
+            <span id="total-val">$0</span>
+        </div>
+
+        <div class="formulario-entrega">
+            <h4>Datos de Entrega</h4>
+            <div class="input-group">
+                <label>¿Quién recibe?</label>
+                <input type="text" id="nombre-destinatario" placeholder="Nombre completo">
+            </div>
+            <div class="input-group">
+                <label>Dirección exacta</label>
+                <input type="text" id="direccion-entrega" placeholder="Ej: Calle 100 #15-20">
+            </div>
+            <div class="input-group">
+                <label>Dedicatoria</label>
+                <textarea id="mensaje-tarjeta" placeholder="Mensaje para la tarjeta..."></textarea>
+            </div>
+        </div>
+
+        <button id="btn-finalizar-pago" onclick="finalizarCompra()" class="btn-pay-now">
+            Pagar Total: $0
+        </button>
+    </aside>
+
+    <div id="cart-empty" class="empty-state" style="display: none;">
+        <h2>Tu carrito está vacío</h2>
+        <br>
+        <a href="arreglos.html" style="color: #d4a373; font-weight: bold; text-decoration: none;">← Ver Catálogo</a>
+    </div>
+</div>
+
+<script>
+    function renderCarrito() {
+        const listado = document.getElementById('cart-items-container');
+        const summary = document.getElementById('checkout-summary');
+        const emptyState = document.getElementById('cart-empty');
+        const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        const envio = 10000;
+
+        // Actualizar contador del menú
+        const cartCount = document.getElementById('cart-count');
+        if(cartCount) cartCount.innerText = carrito.length;
+
+        if (carrito.length === 0) {
+            if(listado) listado.style.display = 'none';
+            if(summary) summary.style.display = 'none';
+            if(emptyState) emptyState.style.display = 'block';
+            return;
+        }
+
+        if(emptyState) emptyState.style.display = 'none';
+        if(listado) {
+            listado.style.display = 'flex';
+            listado.innerHTML = '';
+        }
+        if(summary) summary.style.display = 'block';
+
+        let subtotal = 0;
+
+        carrito.forEach((item, index) => {
+            subtotal += (item.precio * item.cantidad);
+            listado.innerHTML += `
+                <div class="cart-card">
+                    <img src="${item.imagen}" onerror="this.src='img/mantenimiento.jpg'">
+                    <div class="cart-card-info">
+                        <h4>${item.nombre}</h4>
+                        <p>Cantidad: ${item.cantidad}</p>
+                        <div class="item-price">$${item.precio.toLocaleString('es-CO')}</div>
+                    </div>
+                    <button class="btn-remove" onclick="quitar(${index})">✕</button>
+                </div>
+            `;
+        });
+
+        const totalFinal = subtotal + envio;
+
+        // Actualizar valores numéricos
+        document.getElementById('subtotal-val').innerText = "$" + subtotal.toLocaleString('es-CO');
+        document.getElementById('total-val').innerText = "$" + totalFinal.toLocaleString('es-CO');
+        
+        // ACTUALIZA EL TEXTO DEL BOTÓN DE PAGO
+        const btnPago = document.getElementById('btn-finalizar-pago');
+        if(btnPago) {
+            btnPago.innerText = "Pagar Total: $" + totalFinal.toLocaleString('es-CO');
+        }
+
+        // Importante para la función de Mercado Pago
+        localStorage.setItem('totalAPagar', totalFinal);
+    }
+
+    function quitar(idx) {
+        let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        carrito.splice(idx, 1);
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+        renderCarrito();
+    }
+
+    // Ejecutar al cargar
+    document.addEventListener('DOMContentLoaded', renderCarrito);
+</script>
+
+<script src="script.js"></script>
+
+</body>
+</html>

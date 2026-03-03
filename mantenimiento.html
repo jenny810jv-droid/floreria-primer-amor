@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mantenimiento | El Primer Amor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    
+    <title>Nombre de la Página | El Primer Amor</title>
+</head>
+<body>
+    
+
+<nav class="navbar">
+    <a href="index.html" class="logo"><b>El Primer</b> <span>Amor</span></a>
+    <div class="menu-toggle" id="mobile-menu">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+    </div>
+    <ul class="nav-links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="mantenimiento.html" class="active">Mantenimiento</a></li>
+        <li><a href="arreglos.html">Arreglos</a></li>
+        <li><a href="plantas.html">Plantas</a></li> 
+        <li><a href="materas.html">Materas</a></li>
+        <li><a href="galeria.html">Galería</a></li>
+        <li><a href="carrito.html" class="cart-link">🛒 <span id="cart-count">0</span></a></li>
+        <li><a href="https://wa.me/573187092708" class="btn-wa" target="_blank">WhatsApp</a></li>
+    </ul>
+</nav>
+
+
+<section class="transformation-hero">
+    <div class="transformation-container">
+        <div class="before-card">
+            <img src="img/antes-mantenimiento.jpg" alt="Planta descuidada">
+            <div class="status-tag">Antes</div>
+        </div>
+
+        <div class="transformation-text">
+            <h2>Transformamos tus espacios</h2>
+            <p>De lo marchito a lo vibrante. Resultados reales de nuestro cuidado botánico profesional.</p>
+        </div>
+
+        <div class="after-card">
+            <img src="img/despues-mantenimiento.jpg" alt="Planta sana">
+            <div class="status-tag">Después</div>
+        </div>
+    </div>
+</section>
+
+<section class="portfolio-section">
+    <div class="section-title">
+        <span>Servicios Profesionales</span>
+        <h2>Nuestro Portafolio de Cuidado</h2>
+    </div>
+
+    <div class="portfolio-grid">
+        <div class="portfolio-item">
+            <img src="img/mant-1.jpg" alt="Poda">
+            <div class="service-title">Poda Estética y Control</div>
+            <div class="portfolio-overlay">
+                <div class="overlay-info">
+                    <h4>Poda Estética</h4>
+                    <p>Realizamos cortes técnicos para dar forma, eliminar ramas secas y estimular el crecimiento saludable de tus arbustos y setos.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="portfolio-item">
+            <img src="img/mant-2.jpg" alt="Nutrición">
+            <div class="service-title">Nutrición Especializada</div>
+            <div class="portfolio-overlay">
+                <div class="overlay-info">
+                    <h4>Nutrición</h4>
+                    <p>Aplicamos fertilizantes de liberación lenta y quelatos de hierro para corregir el amarillamiento y fortalecer las raíces.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="portfolio-item">
+            <img src="img/mant-3.jpg" alt="Trasplante">
+            <div class="service-title">Trasplante y Sustratos</div>
+            <div class="portfolio-overlay">
+                <div class="overlay-info">
+                    <h4>Trasplante</h4>
+                    <p>Cambiamos tus plantas a macetas más adecuadas con sustratos premium aireados, garantizando un drenaje perfecto y espacio para crecer.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="portfolio-item">
+            <img src="img/mant-4.jpg" alt="Limpieza">
+            <div class="service-title">Limpieza y Brillo Natural</div>
+            <div class="portfolio-overlay">
+                <div class="overlay-info">
+                    <h4>Limpieza</h4>
+                    <p>Eliminamos el polvo de las hojas para mejorar la fotosíntesis y aplicamos productos orgánicos que devuelven el brillo natural.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="portfolio-item">
+            <img src="img/mant-5.jpg" alt="Sanidad">
+            <div class="service-title">Control de Sanidad</div>
+            <div class="portfolio-overlay">
+                <div class="overlay-info">
+                    <h4>Control de Plagas</h4>
+                    <p>Detección y tratamiento contra pulgón, cochinilla y hongos usando métodos biológicos seguros para tu familia y mascotas.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="portfolio-item">
+            <img src="img/mant-6.jpg" alt="Abono">
+            <div class="service-title">Abonado Orgánico</div>
+            <div class="portfolio-overlay">
+                <div class="overlay-info">
+                    <h4>Abonado</h4>
+                    <p>Enriquecemos la tierra con humus de lombriz y compost orgánico para mantener la vitalidad de la planta a largo plazo.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    
+    </div>
+</section>
+
+<section class="cta-mantenimiento">
+    <h3>¿Tus plantas necesitan ayuda profesional?</h3>
+    <p>Agendamos visitas técnicas en todo Bogotá.</p>
+    <a href="https://wa.me/573187092708" class="btn-wa-large">Solicitar Visita Técnica</a>
+</section>
+<script>
+    // Esta función sincroniza el número del carrito al cargar cualquier página
+    function actualizarContadorGlobal() {
+        const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        // Sumamos todas las cantidades de los productos guardados
+        const total = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+        const badge = document.getElementById('cart-count');
+        
+        if (badge) {
+            badge.innerText = total;
+        }
+    }
+
+    // Se ejecuta apenas abre la página
+    actualizarContadorGlobal();
+</script>
+<script src="script.js"></script>
+
+</body>
+</html>
