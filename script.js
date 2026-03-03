@@ -21,13 +21,15 @@ window.agregarAlCarrito = function(nombre, precio, imagen, boton) {
     // EFECTO VISUAL EN EL BOTÓN
     if (boton) {
         const textoOriginal = boton.innerText;
+        const colorOriginal = boton.style.backgroundColor;
+
         boton.innerText = "¡Añadido! ✓";
         boton.style.backgroundColor = "#28a745"; // Verde
         boton.style.color = "white";
         
         setTimeout(() => {
             boton.innerText = textoOriginal;
-            boton.style.backgroundColor = ""; // Vuelve al color original
+            boton.style.backgroundColor = colorOriginal;
             boton.style.color = "";
         }, 2000);
     }
@@ -39,14 +41,14 @@ window.agregarAlCarrito = function(nombre, precio, imagen, boton) {
 // --- 3. ACTUALIZAR EL NUMERITO DEL CARRITO ---
 function actualizarContador() {
     const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-    const contadores = document.querySelectorAll('.cart-count'); // Asegúrate que tu HTML use esta clase
+    const contadores = document.querySelectorAll('.cart-count'); 
     contadores.forEach(c => {
         c.innerText = carrito.length;
         c.style.display = carrito.length > 0 ? "block" : "none";
     });
 }
 
-// --- 4. RENDERIZAR CARRITO (SIN EL ERROR DEL $0) ---
+// --- 4. RENDERIZAR CARRITO ---
 function renderizarCarrito() {
     const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
     const contenedor = document.getElementById('items-carrito');
@@ -55,9 +57,13 @@ function renderizarCarrito() {
     if (!contenedor) return;
 
     if (carrito.length === 0) {
-        contenedor.innerHTML = "<p>El carrito está vacío</p>";
-        document.getElementById('total-final').innerText = "$0";
-        document.getElementById('btn-finalizar-pago').innerText = "Pagar Total: $0";
+        contenedor.innerHTML = "<p style='text-align:center; padding:20px;'>El carrito está vacío</p>";
+        const totalFinalElem = document.getElementById('total-final');
+        const btnPagoElem = document.getElementById('btn-finalizar-pago');
+        
+        if (totalFinalElem) totalFinalElem.innerText = "$0";
+        if (btnPagoElem) btnPagoElem.innerText = "Pagar Total: $0";
+        
         localStorage.setItem('totalAPagar', 0);
         return;
     }
@@ -69,7 +75,7 @@ function renderizarCarrito() {
         subtotal += (item.precio * item.cantidad);
         contenedor.innerHTML += `
             <div class="item-carrito" style="display: flex; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
-                <img src="${item.imagen}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px; margin-right: 15px;">
+                <img src="${item.image || item.imagen}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px; margin-right: 15px;">
                 <div class="info-item">
                     <h4 style="margin: 0;">${item.nombre}</h4>
                     <p style="margin: 5px 0;">$${item.precio.toLocaleString()}</p>
@@ -80,12 +86,11 @@ function renderizarCarrito() {
 
     const totalConEnvio = subtotal + costoEnvio;
     
-    // Actualizamos los textos de los totales
-    document.getElementById('total-final').innerText = `$${totalConEnvio.toLocaleString()}`;
-    const btnPago = document.getElementById('btn-finalizar-pago');
-    if (btnPago) {
-        btnPago.innerText = `Pagar Total: $${totalConEnvio.toLocaleString()}`;
-    }
+    const totalFinalElem = document.getElementById('total-final');
+    const btnPagoElem = document.getElementById('btn-finalizar-pago');
+
+    if (totalFinalElem) totalFinalElem.innerText = `$${totalConEnvio.toLocaleString()}`;
+    if (btnPagoElem) btnPagoElem.innerText = `Pagar Total: $${totalConEnvio.toLocaleString()}`;
     
     localStorage.setItem('totalAPagar', totalConEnvio);
 }
@@ -101,46 +106,49 @@ window.eliminarDelCarrito = function(index) {
 // --- 5. PAGO SEGURO ---
 async function finalizarCompra() {
     const totalVenta = localStorage.getItem('totalAPagar');
-    if (!totalVenta || totalVenta <= 10000) return alert("Agrega productos primero");
+    // Si el total es solo el envío o menos, no dejar pagar
+    if (!totalVenta || parseInt(totalVenta) <= 10000) {
+        return alert("Agrega productos al carrito primero");
+    }
 
     const btn = document.getElementById('btn-finalizar-pago');
+    const textoOriginal = btn.innerText;
+    
     btn.innerText = "Conectando...";
     btn.disabled = true;
 
     try {
         const response = await fetch('/api/crear-pago', {
             method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ total: totalVenta })
         });
+        
         const data = await response.json();
-        if (data.url) window.location.href = data.url;
+        
+        if (data.url) {
+            window.location.href = data.url;
+        } else {
+            throw new Error("No se recibió la URL de pago");
+        }
     } catch (e) {
-        alert("Error de conexión");
+        console.error("Error en el pago:", e);
+        alert("Hubo un problema al conectar con Mercado Pago. Revisa tu conexión.");
+        btn.innerText = textoOriginal;
         btn.disabled = false;
     }
 }
 
+// --- 6. INICIALIZACIÓN ---
 document.addEventListener('DOMContentLoaded', () => {
     actualizarContador();
-    renderizarCarrito();
-
-});
-function agregarAlCarrito(producto, precio, botonPresionado) {
-    // ... tu código existente para guardar en el carrito ...
-
-    // Esto es lo que querías del color y el texto:
-    if (botonPresionado) {
-        const textoOriginal = botonPresionado.innerText;
-        const colorOriginal = botonPresionado.style.backgroundColor;
-
-        botonPresionado.innerText = "Añadido";
-        botonPresionado.style.backgroundColor = "#28a745"; // Verde
-
-        // Opcional: Que vuelva a la normalidad después de 2 segundos
-        setTimeout(() => {
-            botonPresionado.innerText = textoOriginal;
-            botonPresionado.style.backgroundColor = colorOriginal;
-        }, 2000);
+    if (document.getElementById('items-carrito')) {
+        renderizarCarrito();
     }
-}
+
+    const btnPago = document.getElementById('btn-finalizar-pago');
+    if (btnPago) {
+        btnPago.addEventListener('click', finalizarCompra);
+    }
+});
 
