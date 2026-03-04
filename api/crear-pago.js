@@ -31,7 +31,7 @@ module.exports = async (req, res) => {
             auto_return: "approved",
             back_urls: {
                 success: "https://floreria-primer-amor.vercel.app/", 
-                failure: "https://floreria-primer-amor.vercel.app/carrito.html"
+                failure: "https://floreria-primer-amor.vercel.app/carrito.html",
                 pending: "https://floreria-primer-amor.vercel.app/index.html"
             }
         };
