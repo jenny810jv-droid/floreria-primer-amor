@@ -181,5 +181,22 @@ if (mobileMenu) {
         mobileMenu.classList.toggle('is-active');
     });
 }
+document.addEventListener('DOMContentLoaded', () => {
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
+
+    // Forzamos a que el menú esté cerrado al iniciar
+    if (navLinks) {
+        navLinks.classList.remove('active');
+    }
+
+    if (mobileMenu && navLinks) {
+        mobileMenu.onclick = (e) => {
+            e.stopPropagation();
+            navLinks.classList.toggle('active');
+        };
+    }
+});
+
 
 
