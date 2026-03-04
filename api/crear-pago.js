@@ -30,11 +30,13 @@ module.exports = async (req, res) => {
             }],
             auto_return: "approved",
             back_urls: {
-                success: "https://tu-tienda.vercel.app/", 
-                failure: "https://tu-tienda.vercel.app/carrito.html"
+                success: "https://floreria-primer-amor.vercel.app/", 
+                failure: "https://floreria-primer-amor.vercel.app/carrito.html"
+                pending: "https://floreria-primer-amor.vercel.app/index.html"
             }
         };
 
+    
         const response = await mercadopago.preferences.create(preference);
         
         // Enviamos la URL de pago a tu botón
