@@ -1547,3 +1547,8 @@ html { overflow-y: scroll; }
     text-decoration: underline;
 
 }
+.hero-slider {
+    background-color: #fdfbfb; /* Color sólido mientras carga la foto */
+    transition: background-image 0.5s ease-in-out;
+}
+
