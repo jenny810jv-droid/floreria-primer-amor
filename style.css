@@ -261,14 +261,10 @@ body {
 
 /* 2. Ajuste para Celulares */
 @media (max-width: 768px) {
-    /* Estilos de texto y secciones */
-    .hero-content h1 { font-size: 2.2rem; }
-    .split-section { padding: 40px 5%; }
-    .split-text h2 { font-size: 2rem; }
-
-    /* Estilos del Menú (Corregido) */
+    
+    /* 1. ESTO ES LO QUE DEBES CAMBIAR */
     .nav-links {
-        display: none; 
+        display: none !important; /* !important asegura que se oculte sí o sí al cargar */
         position: absolute;
         top: 70px;
         left: 0;
@@ -282,13 +278,15 @@ body {
         box-shadow: 0 10px 15px rgba(0,0,0,0.1);
     }
 
-    /* Clase que activa el JS */
+    /* 2. ESTA CLASE ES LA QUE ACTIVA EL MENÚ */
     .nav-links.active {
-        display: flex !important;
+        display: flex !important; /* Cuando tiene la clase active, se muestra obligatoriamente */
     }
 
-    .nav-links li {
-        margin: 15px 0;
+    /* 3. OPCIONAL: Asegúrate de que el botón (hamburguesa) sea visible */
+    #mobile-menu {
+        display: block;
+        cursor: pointer;
     }
 }
 /* --- PAGINA MANTENIMIENTO --- */
@@ -1555,6 +1553,7 @@ html { overflow-y: scroll; }
 
 
 }
+
 
 
 
