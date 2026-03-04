@@ -1,4 +1,4 @@
-// --- 1. LÓGICA VISUAL (CARRUSEL) ---
+/// --- 1. LÓGICA VISUAL (CARRUSEL) ---
 const imagenes = ['img/flores-inicio.jpeg', 'img/mantenimiento.jpg', 'img/detalles.jpg'];
 let indice = 0;
 const hero = document.querySelector('.hero-slider');
@@ -10,7 +10,7 @@ function cambiarImagen() {
 }
 if (hero) setInterval(cambiarImagen, 10000);
 
-// --- 2. AGREGAR AL CARRITO ---
+// --- 2. AGREGAR AL CARRITO CON EFECTO VERDE ---
 window.agregarAlCarrito = function(nombre, precio, imagen) {
     let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
     carrito.push({ nombre, precio, imagen, cantidad: 1 });
@@ -90,7 +90,7 @@ window.eliminarDelCarrito = function(index) {
     actualizarContador();
 };
 
-// --- 5. LÓGICA DE PAGO ---
+// --- 5. LÓGICA DE PAGO (CORREGIDA CON URL GRATUITA) ---
 async function finalizarCompra() {
     const totalVenta = localStorage.getItem('totalAPagar');
     if (!totalVenta || parseInt(totalVenta) <= 10000) return alert("Agrega productos al carrito primero");
@@ -116,7 +116,7 @@ async function finalizarCompra() {
     }
 }
 
-// --- 6. INICIALIZACIÓN Y MENÚ MÓVIL (LIMPIO) ---
+// --- 6. INICIALIZACIÓN Y MENÚ MÓVIL (ÚNICA VERSIÓN) ---
 document.addEventListener('DOMContentLoaded', () => {
     actualizarContador();
     if (document.getElementById('items-carrito')) renderizarCarrito();
@@ -124,12 +124,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnPago = document.getElementById('btn-finalizar-pago');
     if (btnPago) btnPago.addEventListener('click', finalizarCompra);
 
-    // Lógica única para el menú
+    // LÓGICA DEL MENÚ (REDISEÑADA PARA NO TRABARSE)
     const mobileMenu = document.getElementById('mobile-menu');
     const navLinks = document.querySelector('.nav-links');
 
     if (mobileMenu && navLinks) {
-        // Forzar cierre al cargar
+        // Aseguramos que empiece cerrado
         navLinks.classList.remove('active');
 
         mobileMenu.onclick = (e) => {
@@ -137,12 +137,12 @@ document.addEventListener('DOMContentLoaded', () => {
             navLinks.classList.toggle('active');
         };
 
-        // Cerrar al tocar un link
+        // Cerrar automáticamente al tocar un link
         navLinks.querySelectorAll('a').forEach(link => {
             link.onclick = () => navLinks.classList.remove('active');
         });
 
-        // Cerrar al tocar fuera
+        // Cerrar si tocan fuera
         document.onclick = (e) => {
             if (!navLinks.contains(e.target) && !mobileMenu.contains(e.target)) {
                 navLinks.classList.remove('active');
@@ -150,6 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 });
+
 
 
 
