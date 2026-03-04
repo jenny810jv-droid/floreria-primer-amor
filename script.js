@@ -169,4 +169,17 @@ function actualizarContador() {
         c.style.display = carrito.length > 0 ? "flex" : "none";
     });
 }
+// --- LÓGICA DEL MENÚ MÓVIL (LAS TRES RAYITAS) ---
+const mobileMenu = document.getElementById('mobile-menu');
+const navLinks = document.querySelector('.nav-links');
+
+if (mobileMenu) {
+    mobileMenu.addEventListener('click', () => {
+        // Esto le pone o le quita la clase "active" al menú
+        navLinks.classList.toggle('active');
+        // Esto anima las rayitas para que se conviertan en una X (si tienes el CSS)
+        mobileMenu.classList.toggle('is-active');
+    });
+}
+
 
