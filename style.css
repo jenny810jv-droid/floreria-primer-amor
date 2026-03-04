@@ -1546,9 +1546,4 @@ html { overflow-y: scroll; }
     font-size: 0.8rem;
     text-decoration: underline;
 
-}
-.hero-slider {
-    background-color: #fdfbfb; /* Color sólido mientras carga la foto */
-    transition: background-image 0.5s ease-in-out;
-}
 
