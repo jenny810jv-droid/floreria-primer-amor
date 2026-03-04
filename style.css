@@ -1422,7 +1422,7 @@ html { overflow-y: scroll; }
 /* --- RESPONSIVE (CELULARES) --- */
 @media (max-width: 900px) {
     .menu-toggle {
-        display: flex; /* Aparece en móviles */
+        display: none; /* Aparece en móviles */
     }
 
     .nav-links {
@@ -1555,5 +1555,6 @@ html { overflow-y: scroll; }
 
 
 }
+
 
 
