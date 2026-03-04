@@ -158,4 +158,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+function actualizarContador() {
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    // Buscamos el contador ya sea por ID o por Clase para que nunca falle
+    const contadores = document.querySelectorAll('#cart-count, .cart-count'); 
+    
+    contadores.forEach(c => {
+        c.innerText = carrito.length;
+        // Solo mostramos el número si hay algo en el carrito
+        c.style.display = carrito.length > 0 ? "flex" : "none";
+    });
+}
 
