@@ -265,6 +265,22 @@ body {
     .split-section { padding: 40px 5%; }
     .split-text h2 { font-size: 2rem; }
 }
+@media (max-width: 768px) {
+    .nav-links {
+        display: none; /* Se oculta por defecto */
+        flex-direction: column;
+        width: 100%;
+        background-color: white;
+        position: absolute;
+        top: 70px;
+        left: 0;
+    }
+
+    /* Cuando el JS le pone la clase "active", se muestra */
+    .nav-links.active {
+        display: flex;
+    }
+}
 /* --- PAGINA MANTENIMIENTO --- */
 .hero-mantenimiento {
     height: 300px;
@@ -1529,4 +1545,5 @@ html { overflow-y: scroll; }
     cursor: pointer;
     font-size: 0.8rem;
     text-decoration: underline;
+
 }
