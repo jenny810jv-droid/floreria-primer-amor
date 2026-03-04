@@ -1430,10 +1430,7 @@ html { overflow-y: scroll; }
         gap: 25px;
     }
 
-    .nav-links.active {
-        right: 0; /* Entra a la pantalla cuando se activa */
-    }
-
+    
     .nav-links li {
         width: 100%;
         text-align: center;
@@ -1545,5 +1542,6 @@ html { overflow-y: scroll; }
     cursor: pointer;
     font-size: 0.8rem;
     text-decoration: underline;
+
 
 
